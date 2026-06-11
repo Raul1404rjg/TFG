@@ -260,7 +260,7 @@ html_code = """
                 <div class="control-group">
                     <div class="control-label-row">
                         <label for="slider-frust">Frustración (Rugosidad)</label>
-                        <span id="val-frust" class="slider-badge">0.50 J/contacto</span>
+                        <span id="val-frust" class="slider-badge">0.50 J</span>
                     </div>
                     <input type="range" id="slider-frust" min="0.0" max="2.0" step="0.05" value="0.5">
                     <span class="control-help">Controla la rugosidad del paisaje de energía.</span>
@@ -269,7 +269,7 @@ html_code = """
                 <div class="control-group">
                     <div class="control-label-row">
                         <label for="slider-estab">Estabilidad Nativa</label>
-                        <span id="val-estab" class="slider-badge">1.50 J/contacto</span>
+                        <span id="val-estab" class="slider-badge">1.50 J</span>
                     </div>
                     <input type="range" id="slider-estab" min="0.5" max="3.0" step="0.05" value="1.5">
                     <span class="control-help">Define la profundidad del mínimo de energía global (estado nativo).</span>
@@ -841,7 +841,7 @@ html_code = """
         sliderTemp.addEventListener('input', function() { T = parseFloat(this.value); valTemp.innerHTML = T.toFixed(2); if(!isAnnealing) { updateCvChart(); updateThermalState(); } });
         sliderFrust.addEventListener('input', function() {
             frustration = parseFloat(this.value);
-            valFrust.innerHTML = frustration.toFixed(2) + ' J/contacto';
+            valFrust.innerHTML = frustration.toFixed(2) + ' J';
             traceSurface = buildFunnelSurface();
             layout3d.scene.zaxis.range = [-stability * 8.0 - frustration * 2.0 - 3.0, frustration * 2.0 + 3.0];
             updateCvChart();
@@ -863,7 +863,7 @@ html_code = """
 
         sliderEstab.addEventListener('input', function() {
             stability = parseFloat(this.value);
-            valEstab.innerHTML = stability.toFixed(2) + ' J/contacto';
+            valEstab.innerHTML = stability.toFixed(2) + ' J';
             traceSurface = buildFunnelSurface();
             layout3d.scene.zaxis.range = [-stability * 8.0 - frustration * 2.0 - 3.0, frustration * 2.0 + 3.0];
             updateCvChart();
@@ -979,8 +979,8 @@ html_code = """
             }
 
             // Sync sliders and labels
-            sliderFrust.value = frustration;  valFrust.innerHTML = frustration.toFixed(2) + ' J/contacto';
-            sliderEstab.value = stability;    valEstab.innerHTML = stability.toFixed(2) + ' J/contacto';
+            sliderFrust.value = frustration;  valFrust.innerHTML = frustration.toFixed(2) + ' J';
+            sliderEstab.value = stability;    valEstab.innerHTML = stability.toFixed(2) + ' J';
             sliderTemp.value  = T;            valTemp.innerHTML  = T.toFixed(2);
 
             // Reconstruir la superficie del embudo y actualizar el rango
