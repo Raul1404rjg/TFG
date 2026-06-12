@@ -350,7 +350,7 @@ html_code = """
                     <div class="panel-card sim-3d-panel">
                         <h3>
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.5"><path d="m21 16-4 4-4-4"/><path d="M17 20V4"/><path d="m3 8 4-4 4 4"/><path d="M7 4v16"/></svg>
-                            Embudo de Wolynes 3D y Estado de la Proteína
+                            Paisaje de Energía y Estado de la Proteína
                         </h3>
                         <div id="plot3d"></div>
                     </div>
