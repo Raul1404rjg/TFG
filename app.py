@@ -385,7 +385,7 @@ html_code = """
             uirevision: 'constant', showlegend: false
         };
 
-        // Coordenadas del Cubo Nativo Perfecto 3x3x3 serpenteante
+        // Coordenadas del Cubo Nativo Perfecto 3x3x3 
         const nativeCoords = [
             [0,0,0], [1,0,0], [2,0,0], [2,1,0], [1,1,0], [0,1,0], [0,2,0], [1,2,0], [2,2,0],
             [2,2,1], [1,2,1], [0,2,1], [0,1,1], [1,1,1], [2,1,1], [2,0,1], [1,0,1], [0,0,1],
@@ -498,6 +498,7 @@ html_code = """
         // --- MOTOR MONTE CARLO 3D CORREGIDO ---
         function attemptMonteCarloMove() {
             let effectiveT = isAnnealing ? dynamicT : T;
+            if (effectiveT < getTg()) return false; // Congelar todos los movimientos de la cadena por debajo de Tg (vidrio de espín)
             let dirs = [[1,0,0], [-1,0,0], [0,1,0], [0,-1,0], [0,0,1], [0,0,-1]];
 
             let rVal = Math.random();
@@ -915,14 +916,16 @@ html_code = """
                 const Tf = getTf();
                 const Tg = getTg();
 
-                if (dynamicT > Tf) {
+                if (q_current >= 1.0) {
+                    dynamicT *= 0.80;         // Caída ultra rápida si ya se ha plegado completamente (Q = 1) para el video demo
+                } else if (dynamicT > Tf) {
                     dynamicT *= 0.996;        // Descenso más lento y suave por encima de Tf (0.4% por frame)
                 } else if (dynamicT > Tg) {
                     dynamicT *= 0.9988;       // Ventana Crítica: Descenso sumamente gradual y largo para búsqueda conformacional (0.12% por frame)
                                                // Λ>1: amplia ventana, sistema encuentra estado nativo
                                                // Λ<1: ventana ausente, vitrifica casi al instante
                 } else {
-                    dynamicT *= 0.997;        // Enfriamiento pausado por debajo de Tg (0.3% por frame)
+                    dynamicT *= 0.95;         // Enfriamiento rápido por debajo de Tg (5% por frame) al estar la cadena ya congelada
                 }
                 if (dynamicT < 0.05) dynamicT = 0.05;
                 valTemp.innerHTML = dynamicT.toFixed(2) + ' <span style="color:#10b981; font-size:0.75em; font-weight:bold;">(AUTO)</span>';
